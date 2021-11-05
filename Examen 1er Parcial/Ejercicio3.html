@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                
+                var data = JSON.parse(this.responseText);
+               let values=0;
+               let flag=true;
+               data.data.forEach(element => {
+                   if(isNaN(element)){
+                        alert("Los datos no son númericos")
+                        flag=false;
+                   }else
+                    values += element
+               });
+
+               if(flag){
+                alert("El promedio es: "+values/data.data.length)
+               }
+               
+            }
+        }
+        xhr.open("GET", "./data.json", true)
+        xhr.overrideMimeType("application/json");
+        xhr.send();
+        console.log("send")
+    </script>
+</body>
+
+</html>

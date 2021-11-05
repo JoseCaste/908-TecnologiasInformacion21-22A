@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        class Cliente{
+            constructor(name,address,contact,rfc){
+                this.name=name;
+                this.address=address;
+                this.contact=contact;
+                this.rfc=rfc;
+            }
+        }
+        class Articulo{
+                constructor(description,total,price){
+                    this.price=price;
+                    this.total=total;
+                    this.description=description;
+                }
+        }
+        class Factura{
+                constructor(id,cliente,elements){
+                    this.id=id;
+                    this.cliente=cliente;
+                    this.elements=elements;
+                    this.total=0;
+                }
+                calcularTotal() {
+                    console.log(this.elements) 
+                    for (let index = 0; index < this.elements.length; index++) {
+                        this.total+=this.elements[index].price*this.elements[index].total 
+                    }
+                }
+                mostrarTotal(){
+                    console.log(this.total);
+                }
+        }
+        let item1= new Articulo('its a phone',2,10);
+        let item2= new Articulo('its a laptop',1,28);
+        let cliente= new Cliente('Jose','calle 1','1111111','abc');
+        let factura= new Factura(1,cliente,[item1,item2]);
+       factura.calcularTotal();
+       factura.mostrarTotal();
+    </script>
+</body>
+
+</html>
