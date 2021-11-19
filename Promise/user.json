@@ -1,0 +1,24 @@
+{
+    "id": 1,
+    "firstName": "Ut",
+    "lastName": "Consectetur",
+    "username": "utconsectetur",
+    "avatar": "https://www.gravatar.com/avatar/00000000000000000000000000000000",
+    "email": "ut.consectetur@mailinator.com",
+    "age": 30,
+    "gender": "M",
+    "maritalStatus": "Single",
+    "address": {
+        "house": "A-23 Nec elit",
+        "street": "Diam consectetur donec",
+        "city": "Praesent",
+        "zipcode": "78967",
+        "country": "US",
+        "geo": {
+            "lat": "17.1234",
+            "lng": "-876.9087"
+        }
+    },
+    "phone": "(+1) 000 0000 000",
+    "website": "example.com"
+}
