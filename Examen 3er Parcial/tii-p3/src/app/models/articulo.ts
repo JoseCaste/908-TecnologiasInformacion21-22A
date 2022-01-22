@@ -1,9 +1,9 @@
 import { Departamento } from "./departamento";
 export class Articulo{
 
-    constructor(private nombre:string, private descripcion:string,
-        private depto:Departamento, private precioUnitario:number,
-        private image:string){
+    constructor(public nombre:string, public descripcion:string,
+        public depto:number, public precioUnitario:number,
+        public image:string){
     }
 
     public getNombre():string{
@@ -12,7 +12,7 @@ export class Articulo{
     public getDescripcion():string{
         return this.descripcion;
     }
-    public getDepto():Departamento{
+    public getDepto():number{
         return this.depto;
     }
     public getPrecioUnitario():number{

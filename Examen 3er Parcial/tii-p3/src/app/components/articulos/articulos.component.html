@@ -1,26 +1,34 @@
-<p>articulos works!</p>
 <div style="width: 50%;margin: 0px auto;">
   <button (click)="showForm()" class="btn btn-info" *ngIf="show">Agregar articulo</button>
+  &nbsp;
+  <button (click)="showDepartamento()" class="btn btn-info" *ngIf="show">Lista de departamentos</button>
+
   <div *ngIf="!show">
     <div class="form-group">
       <label for="nombre">Nombre</label>
-      <input type="text" class="form-control" id="nombre" placeholder="Nombre">
+      <input type="text" class="form-control" id="nombre" placeholder="Nombre" [(ngModel)]="articulo.nombre">
     </div>
     <div class="form-group">
       <label for="descripcion">Descripción</label>
-      <input type="text" class="form-control" id="descripcion" placeholder="Descripción">
+      <input type="text" class="form-control" id="descripcion" placeholder="Descripción"
+        [(ngModel)]="articulo.descripcion">
     </div>
     <div class="form-group">
       <label for="depto">Departamento</label>
-      <select class="form-control" id="depto" name="depto">
+      <select class="form-control" id="depto" name="depto" [(ngModel)]="articulo.depto">
+        <option value="">--Seleccione un departamento--</option>
         <option *ngFor="let depto of deptos; let idepto=index" value="{{idepto}}">
-          {{depto}}
+          {{depto.name}}
         </option>
       </select>
     </div>
     <div class="form-group">
       <label for="depto">Precio</label>
-      <input type="number" class="form-control" id="depto" placeholder="Precio">
+      <input type="number" class="form-control" id="depto" placeholder="Precio" [(ngModel)]="articulo.precioUnitario">
+    </div>
+    <div class="form-group">
+      <label for="imagen">Imagen</label>
+      <input type="text" class="form-control" id="imagen" placeholder="Precio" [(ngModel)]="articulo.image">
     </div>
     <br>
     <div class="form-group">
@@ -29,7 +37,8 @@
       <button type="submit" class="btn btn-primary" (click)="showForm()">Cancelar</button>
     </div>
   </div>
-<table class="table">
+
+  <table class="table" *ngIf="showTable">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -45,12 +54,44 @@
         <th scope="row">{{i}}</th>
         <td>{{articulo.getNombre()}}</td>
         <td>{{articulo.getDescripcion()}}</td>
-        <td>{{articulo.getDepto()}}</td>
-        <td>{{articulo.getPrecioUnitario()}}</td>
+        <td>
+          {{articulo.getDepto()}}
+        </td>
+        <td>
+          ${{articulo.getPrecioUnitario()}}
+          <br>
+          <span [ngClass]="{'blink':articulo.getPrecioUnitario()<100}" class="text-danger"
+            *ngIf="articulo.getPrecioUnitario()<100">HOT SALE</span>
+        </td>
         <td>
           <img src="{{articulo.getImage()}}" width="100px">
         </td>
       </tr>
     </tbody>
   </table>
+<br>
+<br><br>
+  <div *ngIf="!showTable">
+    <form>
+      <input type="text" class="form-control" name="newDepto" [(ngModel)]="newDepto" placeholder="Nuevo departamento" />
+      <button type="button" (click)="addDepto()" class="btn btn-primary">Agregar departamento</button>
+    </form>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor=" let depto of deptos; let i=index">
+          <th scope="row">{{i}}</th>
+          <td>{{depto.name}}</td>
+          <td><button type="button" class="btn btn-danger" (click)="deleteDepto(i)">Eliminar</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
