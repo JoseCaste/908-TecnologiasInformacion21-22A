@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Articulo } from 'src/app/models/articulo';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-
 @Component({
   selector: 'app-articulos',
   templateUrl: './articulos.component.html',
@@ -20,7 +19,6 @@ export class ArticulosComponent implements OnInit {
     this.articulos.push(new Articulo('Radio','Radio de alto alcance',"Electrodomestico",200,'https://www.sony.es/image/4324cde285ba7fc58aa19281654c3982?fmt=pjpeg&wid=1200&hei=470&bgcolor=F1F5F9&bgc=F1F5F9'));
     this.articulos.push(new Articulo('Lavadora WEED','Lavadora full complete',"Electrodomestico",9500,'https://www.lg.com/mx/images/lavadoras-y-secadoras/md07512696/gallery/D_3.jpg'));
     this.articulos.push(new Articulo('Licuadora WearPool','Licuadora para frappe',"Electrodomestico",450,'https://ss625.liverpool.com.mx/xl/1107867984.jpg'));
-    //this.deptos=Object.keys(Departamento).filter(key => isNaN(+key));
     this.deptos= new Array();
     this.addDeptos();
     this.newDepto="";
@@ -37,7 +35,6 @@ export class ArticulosComponent implements OnInit {
         console.log("Parámetro de existencia ",params['existencia']);
       
     });
-    
   }
   addArticulo(){
     this.articulos.push(this.articulo);

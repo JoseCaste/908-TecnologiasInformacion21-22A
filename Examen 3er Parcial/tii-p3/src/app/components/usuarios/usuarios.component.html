@@ -1,0 +1,35 @@
+<div style="width: 50%;margin: 0px auto;">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Correo electrónico</th>
+            <th scope="col">Avatar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor=" let user of userList">
+            <th scope="row">{{user.id}}</th>
+            <td>{{user.first_name}}</td>
+            <td>{{user.last_name}}</td>
+            <td>{{user.email}}</td>
+            <td>
+                <img src="{{user.avatar}}" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+          <li class="page-item" [ngClass]="{'disabled': page==1}">
+            <a class="page-link" (click)="relativePage(page-1)">Previo</a>
+          </li>
+          <li class="page-item"><a class="page-link">{{page}}</a></li>
+          <li class="page-item" [ngClass]="{'disabled': totalPage <= page}">
+            <a class="page-link" (click)="nextPage()">Siguiente</a>
+          </li>
+        </ul>
+      </nav>
+</div>
