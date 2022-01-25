@@ -2,7 +2,7 @@ import { Departamento } from "./departamento";
 export class Articulo{
 
     constructor(public nombre:string, public descripcion:string,
-        public depto:number, public precioUnitario:number,
+        public depto:string, public precioUnitario:number,
         public image:string){
     }
 
@@ -12,7 +12,7 @@ export class Articulo{
     public getDescripcion():string{
         return this.descripcion;
     }
-    public getDepto():number{
+    public getDepto():string{
         return this.depto;
     }
     public getPrecioUnitario():number{
