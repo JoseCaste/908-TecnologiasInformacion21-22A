@@ -19,7 +19,7 @@
       <label for="depto">Departamento</label>
       <select class="form-control" id="depto" name="depto" [(ngModel)]="articulo.depto">
         <option value="">--Seleccione un departamento--</option>
-        <option *ngFor="let depto of deptos; let idepto=index" value="{{idepto}}">
+        <option *ngFor="let depto of deptos; let idepto=index" value="{{depto.name}}">
           {{depto.name}}
         </option>
       </select>
@@ -30,7 +30,7 @@
     </div>
     <div class="form-group">
       <label for="imagen">Imagen</label>
-      <input type="text" class="form-control" id="imagen" placeholder="Precio" [(ngModel)]="articulo.image">
+      <input type="text" class="form-control" id="imagen" placeholder="Imagen" [(ngModel)]="articulo.image">
     </div>
     <br>
     <div class="form-group">
