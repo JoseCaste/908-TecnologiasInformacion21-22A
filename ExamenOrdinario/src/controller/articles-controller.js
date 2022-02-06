@@ -4,7 +4,6 @@ let Article = require("../models/article");
 
 let articleController={
     home:(req, res)=>{
-        console.log("ID",req.query.id);
         if(req.query.id != undefined){
             return Article.findById(req.query.id,(error,found)=>{
                 if(error) res.status(500).send({message:'Error al recuperar el árticulo'});
@@ -17,9 +16,6 @@ let articleController={
 
             res.status(200).send(data);
         })
-    },
-    findOne:(req,res)=>{
-
     },
     save:(req,res)=>{
         let article = new Article();
@@ -38,14 +34,8 @@ let articleController={
     },
     update: (req,res)=>{
         let values= req.body;
-        let article_=Article.findById(req.query.id,(error,data)=>{
-            console.log(values,data);
-        });
-        
-
-        Article.findByIdAndUpdate(req.query.id,values,(error, updated)=>{
+        Article.findByIdAndUpdate(req.query.id,values,{new:true},(error, updated)=>{
             if(error) res.status(404).send({message:'Error al actualizar el árticulo'});
-            console.log(updated);
             res.status(200).send(updated);
         })
     },

@@ -43,9 +43,10 @@ export class ArticulosComponent implements OnInit {
     });
   }
   addArticulo(){
-    this.articulos.push(this.articulo);
-    this.articulo= new Articulo("","","",0,"");
-    
+    this.httpClient.post("http://localhost:3700/articles",this.articulo).subscribe(data=>{
+      this.articulo= new Articulo("","","",0,"");
+      this.loadArticles();
+    })
   }
   showForm(){
     this.show=!this.show;
@@ -73,10 +74,11 @@ export class ArticulosComponent implements OnInit {
   updateArticle_(){
     console.log("-----",this.temporalId);
     
-    axios.put(`http://localhost:3700/articles?id=${this.temporalId}`,this.articulo).then(data=>{
-      console.log(data);
-      
-    })
+    this.httpClient.put(`http://localhost:3700/articles?id=${this.temporalId}`,this.articulo).subscribe(data=>{
+      this.updateArticle=!this.updateArticle;
+      this.articulo= new Articulo("","","",0,"");
+      this.loadArticles();
+    });
   }
   deleteItem(id: string){
     this.httpClient.delete(`http://localhost:3700/articles?id=${id}`).subscribe(data=>{
@@ -89,11 +91,11 @@ export class ArticulosComponent implements OnInit {
       let article=data.data;
       this.updateArticle=!this.updateArticle;
       this.temporalId=article._id;
-      this.articulo.nombre=article.name;
-      this.articulo.descripcion=article.description;
+      this.articulo.name=article.name;
+      this.articulo.description=article.description;
       this.articulo.image=article.image;
       this.articulo.depto=article.depto;
-      this.articulo.precioUnitario=article.price;
+      this.articulo.price=article.price;
     })
   }
   loadArticles() {
