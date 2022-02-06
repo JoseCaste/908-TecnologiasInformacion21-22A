@@ -49,24 +49,28 @@
         <th scope="col">Departamento</th>
         <th scope="col">Precio</th>
         <th scope="col">Imagen</th>
+        <th scope="col">Acción</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor=" let articulo of articulos; let i=index">
-        <th scope="row">{{i}}</th>
-        <td>{{articulo.getNombre()}}</td>
-        <td>{{articulo.getDescripcion()}}</td>
+      <tr *ngFor=" let articulo of articulos">
+        <th scope="row">{{articulo._id}}</th>
+        <td>{{articulo.name}}</td>
+        <td>{{articulo.descripcion}}</td>
         <td>
-          {{articulo.getDepto()}}
+          {{articulo.depto}}
         </td>
         <td>
-          ${{articulo.getPrecioUnitario()}}
+          ${{articulo.price}}
           <br>
-          <span [ngClass]="{'blink':articulo.getPrecioUnitario()<100}" class="text-danger"
-            *ngIf="articulo.getPrecioUnitario()<100">HOT SALE</span>
+          <span [ngClass]="{'blink':articulo.price<100}" class="text-danger"
+            *ngIf="articulo.price<100">HOT SALE</span>
         </td>
         <td>
-          <img src="{{articulo.getImage()}}" width="100px">
+          <img src="{{articulo.image}}" width="100px">
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteItem(articulo._id)">Borrar</button>
         </td>
       </tr>
     </tbody>
