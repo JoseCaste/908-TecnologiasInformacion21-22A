@@ -8,12 +8,12 @@
   <div *ngIf="!show">
     <div class="form-group">
       <label for="nombre">Nombre</label>
-      <input type="text" class="form-control" id="nombre" placeholder="Nombre" [(ngModel)]="articulo.nombre">
+      <input type="text" class="form-control" id="nombre" placeholder="Nombre" [(ngModel)]="articulo.name">
     </div>
     <div class="form-group">
       <label for="descripcion">Descripción</label>
       <input type="text" class="form-control" id="descripcion" placeholder="Descripción"
-        [(ngModel)]="articulo.descripcion">
+        [(ngModel)]="articulo.description">
     </div>
     <div class="form-group">
       <label for="depto">Departamento</label>
@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
       <label for="depto">Precio</label>
-      <input type="number" class="form-control" id="depto" placeholder="Precio" [(ngModel)]="articulo.precioUnitario">
+      <input type="number" class="form-control" id="depto" placeholder="Precio" [(ngModel)]="articulo.price">
     </div>
     <div class="form-group">
       <label for="imagen">Imagen</label>
@@ -40,6 +40,40 @@
     </div>
   </div>
 
+  <div *ngIf="!updateArticle">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" class="form-control" id="nombre" placeholder="Nombre" [(ngModel)]="articulo.name">
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <input type="text" class="form-control" id="descripcion" placeholder="Descripción"
+        [(ngModel)]="articulo.description">
+    </div>
+    <div class="form-group">
+      <label for="depto">Departamento</label>
+      <select class="form-control" id="depto" name="depto" [(ngModel)]="articulo.depto">
+        <option value="">--Seleccione un departamento--</option>
+        <option *ngFor="let depto of deptos; let idepto=index" value="{{depto.name}}">
+          {{depto.name}}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="depto">Precio</label>
+      <input type="number" class="form-control" id="depto" placeholder="Precio" [(ngModel)]="articulo.price">
+    </div>
+    <div class="form-group">
+      <label for="imagen">Imagen</label>
+      <input type="text" class="form-control" id="imagen" placeholder="Imagen" [(ngModel)]="articulo.image">
+    </div>
+    <br>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" (click)="updateArticle_()">Actualizar</button>
+      &nbsp;
+      <button type="submit" class="btn btn-primary" (click)="hideFormUpdate()">Cancelar</button>
+    </div>
+  </div>
   <table class="table" *ngIf="showTable">
     <thead>
       <tr>
@@ -49,24 +83,31 @@
         <th scope="col">Departamento</th>
         <th scope="col">Precio</th>
         <th scope="col">Imagen</th>
+        <th scope="col">Acción</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor=" let articulo of articulos; let i=index">
-        <th scope="row">{{i}}</th>
-        <td>{{articulo.getNombre()}}</td>
-        <td>{{articulo.getDescripcion()}}</td>
+      <tr *ngFor=" let articulo of articulos">
+        <th scope="row">{{articulo._id}}</th>
         <td>
-          {{articulo.getDepto()}}
+          {{articulo.name}}
+        </td>
+        <td>{{articulo.description}}</td>
+        <td>
+          {{articulo.depto}}
         </td>
         <td>
-          ${{articulo.getPrecioUnitario()}}
+          ${{articulo.price}}
           <br>
-          <span [ngClass]="{'blink':articulo.getPrecioUnitario()<100}" class="text-danger"
-            *ngIf="articulo.getPrecioUnitario()<100">HOT SALE</span>
+          <span [ngClass]="{'blink':articulo.price<100}" class="text-danger"
+            *ngIf="articulo.price<100">HOT SALE</span>
         </td>
         <td>
-          <img src="{{articulo.getImage()}}" width="100px">
+          <img src="{{articulo.image}}" width="100px">
+        </td>
+        <td>
+          <button class="btn btn-danger" (click)="deleteItem(articulo._id)">Borrar</button>
+          <button class="btn btn-info" (click)="searchItem(articulo._id)">Editar</button>
         </td>
       </tr>
     </tbody>
