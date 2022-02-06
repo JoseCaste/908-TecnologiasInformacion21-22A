@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Articulo } from 'src/app/models/articulo';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 import axios from 'axios';
 @Component({
   selector: 'app-articulos',
@@ -14,7 +15,9 @@ export class ArticulosComponent implements OnInit {
   public articulo:Articulo;
   public showTable:boolean=true;
   public newDepto:string;
-  constructor(private route:Router, private activateRoute:ActivatedRoute) {
+  public updateArticle:boolean=true;
+  public temporalId:String;
+  constructor(private route:Router, private activateRoute:ActivatedRoute, private httpClient:HttpClient) {
     this.loadArticles();
     /*this.articulos.push(new Articulo('Jabón líquido','Jabón multiusos',"Abarrotes",125,'https://www.jabonesdial.com/media/LHS_221%20ml%20y%20460%20ml.png'));
     this.articulos.push(new Articulo('Downy','Suavisante de telas',"Abarrotes",15,'https://www.chedraui.com.mx/medias/7500435160858-00-CH1200Wx1200H?context=bWFzdGVyfHJvb3R8OTE4NDl8aW1hZ2UvanBlZ3xoNTMvaGU1LzEwNjEzMjQ3OTAxNzI2LmpwZ3wyZWYzMTgyZTEyNTdhNWVkZmFkZjM4ZTg3Nzg2ODdlMDNkYmU1YTZkOTdkYWY3MGFhM2VhMDFjMTA1YmY0MThk'));
@@ -25,6 +28,7 @@ export class ArticulosComponent implements OnInit {
     this.addDeptos();
     this.newDepto="";
     this.articulo= new Articulo("","","",0,"");
+    this.temporalId="";
    }
 
   ngOnInit(): void {
@@ -60,23 +64,41 @@ export class ArticulosComponent implements OnInit {
   showDepartamento(){
     this.showTable=!this.showTable;
   }
+  hideFormUpdate(){
+    this.updateArticle=!this.updateArticle;
+  }
   redirectHome(){
     this.route.navigate(["/"])
   }
-  deleteItem(id: string){
-    console.log(`http://localhost:3700/articles?id=${id}`);
+  updateArticle_(){
+    console.log("-----",this.temporalId);
     
-    axios.delete(`http://localhost:3700/articles`,{data: id}).then(data=>{
-      //this.loadArticles();
+    axios.put(`http://localhost:3700/articles?id=${this.temporalId}`,this.articulo).then(data=>{
+      console.log(data);
       
     })
+  }
+  deleteItem(id: string){
+    this.httpClient.delete(`http://localhost:3700/articles?id=${id}`).subscribe(data=>{
+      this.loadArticles();
+    })
     
+  }
+  searchItem(id:string){
+    axios.get(`http://localhost:3700/articles?id=${id}`).then(data=>{
+      let article=data.data;
+      this.updateArticle=!this.updateArticle;
+      this.temporalId=article._id;
+      this.articulo.nombre=article.name;
+      this.articulo.descripcion=article.description;
+      this.articulo.image=article.image;
+      this.articulo.depto=article.depto;
+      this.articulo.precioUnitario=article.price;
+    })
   }
   loadArticles() {
     axios.get("http://localhost:3700/articles").then(data=>{
       this.articulos=data.data;
-      console.log(this.articulos);
-      
     })
   }
 }

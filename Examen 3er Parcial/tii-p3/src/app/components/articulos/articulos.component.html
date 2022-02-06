@@ -40,6 +40,40 @@
     </div>
   </div>
 
+  <div *ngIf="!updateArticle">
+    <div class="form-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" class="form-control" id="nombre" placeholder="Nombre" [(ngModel)]="articulo.nombre">
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción</label>
+      <input type="text" class="form-control" id="descripcion" placeholder="Descripción"
+        [(ngModel)]="articulo.descripcion">
+    </div>
+    <div class="form-group">
+      <label for="depto">Departamento</label>
+      <select class="form-control" id="depto" name="depto" [(ngModel)]="articulo.depto">
+        <option value="">--Seleccione un departamento--</option>
+        <option *ngFor="let depto of deptos; let idepto=index" value="{{depto.name}}">
+          {{depto.name}}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="depto">Precio</label>
+      <input type="number" class="form-control" id="depto" placeholder="Precio" [(ngModel)]="articulo.precioUnitario">
+    </div>
+    <div class="form-group">
+      <label for="imagen">Imagen</label>
+      <input type="text" class="form-control" id="imagen" placeholder="Imagen" [(ngModel)]="articulo.image">
+    </div>
+    <br>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" (click)="updateArticle_()">Actualizar</button>
+      &nbsp;
+      <button type="submit" class="btn btn-primary" (click)="hideFormUpdate()">Cancelar</button>
+    </div>
+  </div>
   <table class="table" *ngIf="showTable">
     <thead>
       <tr>
@@ -55,8 +89,10 @@
     <tbody>
       <tr *ngFor=" let articulo of articulos">
         <th scope="row">{{articulo._id}}</th>
-        <td>{{articulo.name}}</td>
-        <td>{{articulo.descripcion}}</td>
+        <td>
+          {{articulo.name}}
+        </td>
+        <td>{{articulo.description}}</td>
         <td>
           {{articulo.depto}}
         </td>
@@ -71,6 +107,7 @@
         </td>
         <td>
           <button class="btn btn-danger" (click)="deleteItem(articulo._id)">Borrar</button>
+          <button class="btn btn-info" (click)="searchItem(articulo._id)">Editar</button>
         </td>
       </tr>
     </tbody>
