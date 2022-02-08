@@ -99,7 +99,7 @@
         <td>
           ${{articulo.price}}
           <br>
-          <span [ngClass]="{'blink':articulo.price<100}" class="text-danger"
+          <span [ngClass]="{'blink':articulo.price<25}" class="text-danger"
             *ngIf="articulo.price<100">HOT SALE</span>
         </td>
         <td>
